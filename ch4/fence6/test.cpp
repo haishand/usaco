@@ -1,9 +1,3 @@
-/*
-ID:cyrano63
-LANG:C++
-TASK:snail
-*/
-
 #include <iostream>  
 #include <cmath>  
 #include <cstdio>  
@@ -20,28 +14,17 @@ TASK:snail
 
 using namespace std;
 
-void input()
-{
-}
+int N;
 
-void solve()
-{
-}
-
-void output()
-{
-}
-
-int main(void)
+int main(void) 
 {
 #ifndef DEBUG
-	freopen("snail.in", "r", stdin);
-	freopen("snail.out", "w", stdout);
+	freopen("fence6.in", "r", stdin);
+	freopen("fence6.out", "w", stdout);
 #endif
 
-	input();
-	solve();
-	output();
-
+	scanf("%d", &N);
+	printf("N=%d\n", N);
+	
 	return 0;
 }
