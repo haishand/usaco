@@ -53,7 +53,7 @@ void solve()
 
 	f[1][1] = 1;
 	for(int i=1; i<=N; i++) {
-		for(int j=i+1; j<=N; j++) {
+		for(int j=1; j<=N; j++) {
 			temp1 = 0, temp2 = 0;
 			for(int k1=1; k1<i; k1++) {
 				if(airline[k1][i]) {
