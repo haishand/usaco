@@ -25,6 +25,16 @@ using namespace std;
 int N, T;
 int barn[MAXN][MAXN];
 
+
+void print_barn() {
+    for(int i=0; i<N; i++) {
+        for(int j=0; j<N; j++) {
+            printf("%d", barn[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void input()
 {
     int x, y;
@@ -32,15 +42,19 @@ void input()
     scanf("%d %d", &N, &T);
     for(int i=0; i<T; i++) {
         scanf("%d %d", &x, &y);
-        barn[x][y] = 1;
+        barn[x-1][y-1] = 1;
     }
+//    print_barn();
 }
 
 int f[MAXN][MAXN];
+int ans;
+
 void solve()
 {
     memset(f, 0, sizeof(f));
 
+    ans = 0;
     for(int i=0; i<N; i++) {
         if(barn[i][0] == 0) {
             f[i][0] = 1;
@@ -53,6 +67,13 @@ void solve()
         }else {
             f[0][i] = 0;
         }
+
+        if(ans<f[i][0]) {
+            ans = f[i][0];
+        }
+        if(ans<f[0][i]) {
+            ans = f[0][i];
+        }
     }
     
     for(int i=1; i<N; i++) {
@@ -63,13 +84,16 @@ void solve()
             }else {
                 f[i][j] = 0;
             }
+            if(f[i][j]>ans) {
+                ans = f[i][j];
+            }
         }
     }
 }
 
 void output()
 {
-    printf("%d\n", f[N-1][N-1]+1);
+    printf("%d\n", ans);
 }
 
 //#define DEBUG

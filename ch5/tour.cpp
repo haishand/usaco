@@ -26,6 +26,16 @@ int N, V;
 map<string, int> city_no;
 int airline[MAXN][MAXN];
 
+void print(int (*p)[MAXN]) {
+
+    for(int i=1; i<=N; i++) {
+        for(int j=1; j<=N; j++) {
+            printf("%d", p[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void input()
 {
 	string city;
@@ -33,7 +43,7 @@ void input()
 	cin>>N>>V;
 	for(int i=0; i<N; i++) {
 		cin>>city;
-		city_no["city"] = i+1;	// make sure city number start from 1
+		city_no[city] = i+1;	// make sure city number start from 1
 	}
 
 	string from, to;
@@ -41,25 +51,25 @@ void input()
 	for(int i=0; i<V; i++) {
 		cin>>from>>to;
 		airline[city_no[from]][city_no[to]] = 1;
+		airline[city_no[to]][city_no[from]] = 1;
 	}
+//    print(airline);
 }
 
-int f[MAXN][MAXN];	// f[i][j] = max{f[ ]}
+int f[MAXN][MAXN];	
 void solve()
 {
-    int k1, k2, temp1, temp2;
-
 	memset(f, 0, sizeof(f));
 
 	f[1][1] = 1;
-	for(int i=1; i<=N; i++) {
-		for(int j=1; j<=N; j++) {
-			temp1 = 0, temp2 = 0;
-			for(int k1=1; k1<i; k1++) {
-				if(airline[k1][i]) {
-					temp1 = max(temp1, f[k1][j]);
+	for(int i=1; i<N; i++) {
+		for(int j=i+1; j<=N; j++) {
+			for(int k=1; k<j; k++) {
+				if(airline[k][j] && f[i][k]>0) {
+					f[i][j] = max(f[i][j], f[i][k]+1);
 				}
 			}
+            f[j][i] = f[i][j];
 
 		}
 	}
@@ -68,15 +78,16 @@ void solve()
 
 void output()
 {
-    for(int i=1; i<=N; i++) {
-        for(int j=1; j<=N; j++) {
-            cout<<f[i][j]<<endl;
+    int ans = 0;
+    for(int i=1; i<N; i++) {
+        if(airline[i][N] && ans < f[i][N]) {
+            ans = f[i][N];
         }
     }
-
+    printf("%d\n", ans>1?ans:1);
 }
 
-#define DEBUG
+//#define DEBUG
 int main(void)
 {
 #ifndef DEBUG
