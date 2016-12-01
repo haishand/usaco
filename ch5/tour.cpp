@@ -60,12 +60,7 @@ void solve()
 					temp1 = max(temp1, f[k1][j]);
 				}
 			}
-			for(int k2=i+1; k2<j; k2++) {
-				if(airline[k2][j]) {
-					temp2 = max(temp2, f[i][k2]);
-				}
-			}
-			f[i][j] = max(f[i][j], max(temp1, temp2)+1);
+
 		}
 	}
 
